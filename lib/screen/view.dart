@@ -13,23 +13,26 @@ class _MyAppState extends State<Screen> {
   final TextEditingController _taskController = TextEditingController();
   final TextEditingController _secondTaskController = TextEditingController();
   final List<String> _tasks = [];
+  final List<String> _tasks1 = [];
 
   void _addTask() {
     if (_taskController.text.isNotEmpty) {
       setState(() {
         _tasks.add(_taskController.text);
+        _tasks1.add(_secondTaskController.text);
         _taskController.clear();
+        _secondTaskController.clear();
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        backgroundColor: Colors.cyanAccent,
+    return Scaffold(
+        backgroundColor: Colors.blueGrey,
         appBar: AppBar(
-          backgroundColor: Colors.greenAccent,
-          title: Center(
+          backgroundColor: Colors.blueGrey[600],
+          title: const Center(
             child: Text(
               'Task',
               style: TextStyle(color: Colors.white, fontSize: 30),
@@ -60,11 +63,11 @@ class _MyAppState extends State<Screen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+             const SizedBox(height: 10),
               TextField(
                 controller: _secondTaskController,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 35.0),
+                  contentPadding:const EdgeInsets.symmetric(vertical: 35.0),
                   hintText: 'Enter task',
                   fillColor: const Color(0xffF8F9FA),
                   filled: true,
@@ -82,15 +85,16 @@ class _MyAppState extends State<Screen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+             const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
                   itemCount: _tasks.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Center(
-                        child: Text(_tasks[index], style: TextStyle(fontSize: 20)),
-                      ),
+                    return Column(
+                      children: [
+                        Text("${_tasks[index]}"),
+                        Text("${_tasks1[index]}"),
+                      ],
                     );
                   },
                 ),
@@ -100,7 +104,7 @@ class _MyAppState extends State<Screen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _addTask,
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
     );
   }
